@@ -4,14 +4,22 @@ using UnityEngine;
 
 public class MobUnit : MonoBehaviour
 {
-    private float dawdle = 5f;
     public GameObject player;
+    public List<Vector3> formation;
+    public Vector3 formPosn;
+
+    private float dawdle = 5f;
     private Vector3 playerOffset;
+    
 
     private void Start()
     {
+        print("running start");
         playerOffset = new Vector3(player.transform.position.x + transform.position.x, player.transform.position.y + transform.position.y);
         dawdle = Random.Range(1f, 8f);
+
+        formation[0] = playerOffset;
+        formation[1] = formPosn + player.transform.position;
     }
 
     // Update is called once per frame
@@ -21,5 +29,11 @@ public class MobUnit : MonoBehaviour
         float verti = Input.GetAxis("Vertical");
 
         transform.position = player.transform.position + playerOffset + new Vector3(hori * dawdle * -1, verti * dawdle * -1) * Time.deltaTime;
+    }
+
+    public void makeFormation(int form)
+    {
+        print("doot");
+        playerOffset = formation[form];
     }
 }

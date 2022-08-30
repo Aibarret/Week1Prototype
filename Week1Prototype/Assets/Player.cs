@@ -5,13 +5,29 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float speed = 10f;
+    public List<GameObject> mob;
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKey(KeyCode.Z))
         {
-            // Start tweening
+            int count = 0;
+            while (count < mob.Count)
+            {
+                mob[count].GetComponent<MobUnit>().makeFormation(0);
+                count++;
+            }
+        }
+
+        if (Input.GetKey(KeyCode.X))
+        {
+            int count = 0;
+            while (count < mob.Count)
+            {
+                mob[count].GetComponent<MobUnit>().makeFormation(1);
+                count++;
+            }
         }
 
         float hori = Input.GetAxis("Horizontal");
