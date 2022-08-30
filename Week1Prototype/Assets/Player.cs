@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Default Formation
         if (Input.GetKey(KeyCode.Z))
         {
             int count = 0;
@@ -19,13 +20,23 @@ public class Player : MonoBehaviour
                 count++;
             }
         }
-
+        //Hand Formation
         if (Input.GetKey(KeyCode.X))
         {
             int count = 0;
             while (count < mob.Count)
             {
                 mob[count].GetComponent<MobUnit>().makeFormation(1);
+                count++;
+            }
+        }
+        //Lance Formation
+        if (Input.GetKey(KeyCode.C))
+        {
+            int count = 0;
+            while (count < mob.Count)
+            {
+                mob[count].GetComponent<MobUnit>().makeFormation(2);
                 count++;
             }
         }

@@ -7,6 +7,7 @@ public class MobUnit : MonoBehaviour
     public GameObject player;
     public List<Vector3> formation;
     public Vector3 formPosn;
+    public List<Vector3> formationPosnList;
 
     private float dawdle = 5f;
     private Vector3 playerOffset;
@@ -16,10 +17,11 @@ public class MobUnit : MonoBehaviour
     {
         print("running start");
         playerOffset = new Vector3(player.transform.position.x + transform.position.x, player.transform.position.y + transform.position.y);
-        dawdle = Random.Range(1f, 8f);
+        dawdle = Random.Range(2f, 8f);
 
         formation[0] = playerOffset;
-        formation[1] = formPosn + player.transform.position;
+        formation[1] = formationPosnList[0] + player.transform.position;
+        formation[2] = formationPosnList[1] + player.transform.position;
     }
 
     // Update is called once per frame
