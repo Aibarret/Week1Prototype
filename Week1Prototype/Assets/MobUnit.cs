@@ -13,7 +13,7 @@ public class MobUnit : MonoBehaviour
     private Vector3 playerOffset;
     
     private bool formationSwitch = false;
-    public float lerpDuration = 3;
+    public float lerpDuration = .6f;
     private float elapsedFrames = 0;
     
 
@@ -21,7 +21,7 @@ public class MobUnit : MonoBehaviour
     {
         print("running start");
         playerOffset = new Vector3(player.transform.position.x + transform.position.x, player.transform.position.y + transform.position.y);
-        dawdle = Random.Range(2f, 8f);//Mathf.Floor();
+        dawdle = Random.Range(2.5f, 8f);//Mathf.Floor();
        
 
         formation[0] = playerOffset;
@@ -37,7 +37,7 @@ public class MobUnit : MonoBehaviour
 
         if (elapsedFrames < lerpDuration && formationSwitch)
         {
-            transform.position = Vector3.Lerp(transform.position, playerOffset, elapsedFrames / lerpDuration);
+            transform.position = Vector3.Lerp(transform.position, player.transform.position + playerOffset, elapsedFrames / lerpDuration);
             elapsedFrames += Time.deltaTime;
             
             if (elapsedFrames >= lerpDuration)
