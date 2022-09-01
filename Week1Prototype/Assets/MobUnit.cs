@@ -12,12 +12,16 @@ public class MobUnit : MonoBehaviour
     public float dawdle = 5f;
     private Vector3 playerOffset;
     
+    private bool formationSwitch = false;
+    public float lerpDuration = 3;
+    private float elapsedFrames = 0;
+    
 
     private void Start()
     {
         print("running start");
         playerOffset = new Vector3(player.transform.position.x + transform.position.x, player.transform.position.y + transform.position.y);
-        dawdle = Mathf.Floor(Random.Range(3f, 9f));
+        dawdle = Random.Range(2f, 8f);//Mathf.Floor();
        
 
         formation[0] = playerOffset;
@@ -31,12 +35,29 @@ public class MobUnit : MonoBehaviour
         float hori = Input.GetAxis("Horizontal");
         float verti = Input.GetAxis("Vertical");
 
-        transform.position = player.transform.position + playerOffset + (new Vector3(hori * dawdle * -1, verti * dawdle * -1) * 4) * Time.deltaTime;
+        if (elapsedFrames < lerpDuration && formationSwitch)
+        {
+            transform.position = Vector3.Lerp(transform.position, playerOffset, elapsedFrames / lerpDuration);
+            elapsedFrames += Time.deltaTime;
+            
+            if (elapsedFrames >= lerpDuration)
+            {
+                print("formation switch should end here");
+                formationSwitch = false;
+            }
+        }
+        else
+        {
+            
+            transform.position = player.transform.position + playerOffset + (new Vector3(hori * dawdle * -1, verti * dawdle * -1)) * Time.deltaTime;
+        }
+        
     }
 
     public void makeFormation(int form)
     {
-        print("doot");
         playerOffset = formation[form];
+        formationSwitch = true;
+        elapsedFrames = 0;
     }
 }
