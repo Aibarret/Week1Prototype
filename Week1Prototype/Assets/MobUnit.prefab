@@ -101,6 +101,7 @@ MonoBehaviour:
   formation: []
   formPosn: {x: 0, y: 0, z: 0}
   formationPosnList: []
+  rigid: {fileID: 7283000534043409952}
   dawdle: 5
   lerpDuration: 0.6
 --- !u!58 &414710159827977531

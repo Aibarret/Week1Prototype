@@ -8,6 +8,7 @@ public class MobUnit : MonoBehaviour
     public List<Vector3> formation;
     public Vector3 formPosn;
     public List<Vector3> formationPosnList;
+    public Rigidbody2D rigid;
 
     public float dawdle = 5f;
     private Vector3 playerOffset;
@@ -37,7 +38,7 @@ public class MobUnit : MonoBehaviour
 
         if (elapsedFrames < lerpDuration && formationSwitch)
         {
-            transform.position = Vector3.Lerp(transform.position, player.transform.position + playerOffset, elapsedFrames / lerpDuration);
+            rigid.MovePosition(Vector3.Lerp(transform.position, player.transform.position + playerOffset, elapsedFrames / lerpDuration));
             elapsedFrames += Time.deltaTime;
             
             if (elapsedFrames >= lerpDuration)
@@ -48,8 +49,7 @@ public class MobUnit : MonoBehaviour
         }
         else
         {
-            
-            transform.position = player.transform.position + playerOffset + (new Vector3(hori * dawdle * -1, verti * dawdle * -1)) * Time.deltaTime;
+            rigid.MovePosition(player.transform.position + playerOffset + (new Vector3(hori * dawdle * -1, verti * dawdle * -1)) * Time.deltaTime);
         }
         
     }
