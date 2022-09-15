@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
     public float speed = 10f;
     public List<GameObject> mob;
 
+    public Rigidbody2D rb;
+
     // Update is called once per frame
     void Update()
     {
