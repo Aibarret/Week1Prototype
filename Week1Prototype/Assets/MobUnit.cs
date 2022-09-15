@@ -14,6 +14,9 @@ public class MobUnit : MonoBehaviour
     private Vector3 playerOffset;
     
     private bool formationSwitch = false;
+    private bool throwing = false;
+    private Vector3 targetPosn;
+
     public float lerpDuration = .6f;
     private float elapsedFrames = 0;
     
@@ -28,6 +31,7 @@ public class MobUnit : MonoBehaviour
         formation[0] = playerOffset;
         formation[1] = formationPosnList[0] + player.transform.position;
         formation[2] = formationPosnList[1] + player.transform.position;
+        print("Player Offset: " + playerOffset);
     }
 
     // Update is called once per frame
@@ -47,6 +51,17 @@ public class MobUnit : MonoBehaviour
                 formationSwitch = false;
             }
         }
+        else if (elapsedFrames < lerpDuration && throwing){
+            
+            rigid.MovePosition(Vector3.Lerp(transform.position, targetPosn + playerOffset, elapsedFrames / lerpDuration));
+            elapsedFrames += Time.deltaTime;
+
+            if (elapsedFrames >= lerpDuration)
+            {
+                print("throw should end here");
+                
+            }
+        }
         else
         {
             rigid.MovePosition(player.transform.position + playerOffset + (new Vector3(hori * dawdle * -1, verti * dawdle * -1)) * Time.deltaTime);
@@ -54,10 +69,21 @@ public class MobUnit : MonoBehaviour
         
     }
 
+    // PUBLIC FUNCTIONS ==============================================================================================================================
+
     public void makeFormation(int form)
     {
         playerOffset = formation[form];
         formationSwitch = true;
+        elapsedFrames = 0;
+    }
+
+    public void throwMob(Vector3 posn)
+    {
+        print("MOUSE POSN AT: " + posn);
+        print("MOB MOVING TOWARDS: " + (targetPosn + playerOffset));
+        targetPosn = posn;
+        throwing = true;
         elapsedFrames = 0;
     }
 }

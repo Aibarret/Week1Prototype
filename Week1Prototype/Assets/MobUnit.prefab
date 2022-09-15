@@ -103,7 +103,7 @@ MonoBehaviour:
   formationPosnList: []
   rigid: {fileID: 7283000534043409952}
   dawdle: 5
-  lerpDuration: 0.6
+  lerpDuration: 1
 --- !u!58 &414710159827977531
 CircleCollider2D:
   m_ObjectHideFlags: 0

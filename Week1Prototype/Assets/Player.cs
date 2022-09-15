@@ -41,9 +41,21 @@ public class Player : MonoBehaviour
             }
         }
 
+        if (Input.GetMouseButtonDown(0)){
+            
+            int count = 0;
+            while (count < mob.Count)
+            {
+                mob[count].GetComponent<MobUnit>().throwMob(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                count++;
+            }
+        }
+
         float hori = Input.GetAxis("Horizontal");
         float verti = Input.GetAxis("Vertical");
 
         transform.position += new Vector3(hori * speed, verti * speed, 0) * Time.deltaTime;
     }
+
+    
 }
