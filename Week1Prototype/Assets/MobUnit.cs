@@ -15,9 +15,12 @@ public class MobUnit : MonoBehaviour
     
     private bool formationSwitch = false;
     private bool throwing = false;
+    private bool catching = false;
+
     private Vector3 targetPosn;
 
-    public float lerpDuration = .6f;
+    private float lerpDuration = 1f;
+    private float catchSpeed = 2f;
     private float elapsedFrames = 0;
     
 
@@ -59,7 +62,21 @@ public class MobUnit : MonoBehaviour
             if (elapsedFrames >= lerpDuration)
             {
                 print("throw should end here");
-                
+                catching = true;
+                throwing = false;
+                elapsedFrames = 0f;
+            }
+
+        }
+        else if (elapsedFrames < lerpDuration && catching)
+        {
+            rigid.MovePosition(Vector3.Lerp(transform.position, player.transform.position + playerOffset, elapsedFrames / catchSpeed));
+            elapsedFrames += Time.deltaTime;
+
+            if (elapsedFrames >= lerpDuration)
+            {
+                print("catch should end here");
+                catching = false;
             }
         }
         else
